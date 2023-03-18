@@ -23,21 +23,28 @@ const MentorList = () => {
     fetchData();
   }, [dispatch]);
 
+  //sorting by price
   const handleSortByChange = (event) => {
     dispatch(setSortBy(event.target.value));
   };
+
+  //filtering by categories wise
   const handleCategoryChange = (event) => {
     dispatch(setCategory(event.target.value));
   };
 
   let filteredMentors = mentors;
 
+  //sorting
   if (sortBy) {
-    filteredMentors = filteredMentors.sort((a, b) =>
-      sortBy === "highestToLowest" ? b.price - a.price : a.price - b.price
+    filteredMentors = [...filteredMentors].sort((a, b) =>
+      sortBy === "highestToLowest"
+        ? b.minimumPrice - a.minimumPrice
+        : a.minimumPrice - b.minimumPrice
     );
   }
 
+  //filtering
   if (category) {
     filteredMentors = filteredMentors.filter((mentor) =>
       mentor.categories.includes(category)
@@ -98,6 +105,10 @@ const MentorList = () => {
                   <p>
                     <span>City: </span>
                     {mentor.city}
+                  </p>
+                  <p>
+                    <span>Price: </span>
+                    {mentor.minimumPrice}
                   </p>
                   <p className="px-5 text-xs sm:text-base dark:text-gray-400">
                     About: {mentor.about.slice(0, 30)}

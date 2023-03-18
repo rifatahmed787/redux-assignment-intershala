@@ -17,7 +17,7 @@ const mentorSlice = createSlice({
       state.mentors = action.payload;
     },
     setSortBy: (state, action) => {
-      state.filters.sortBy = action.payload;
+      state.filters = { ...state.filters, sortBy: action.payload };
     },
     setCategory: (state, action) => {
       state.filters.category = action.payload;
